@@ -1,0 +1,21 @@
+/* 
+    Created on : Apr 30, 2014, 10:12:05 AM
+    Author     : Halaliuc
+*/
+
+tr{
+	padding:5px 0;
+}
+
+tr th,
+tr td{
+	text-align:center;
+}
+
+.filterForm{
+	margin-bottom:20px;
+}
+
+table tr th{
+	border-bottom:1px #333 solid;
+}
