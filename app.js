@@ -12,8 +12,6 @@ $( document ).ready(function() {
 		
 		//If there are any rows in table.
 		if($('.employee').length){
-			//empty the table
-			$('#employeeTable').find('tbody').html('');
 			
 			//Create another data Array only with the elements that exist in the table. 
 			var currentData = [];
@@ -54,6 +52,9 @@ $( document ).ready(function() {
 					currentData = currentData.sort(function(a, b){ return a.id - b.id; });
 					break;
 			}
+			
+			//empty the table
+			$('#employeeTable').find('tbody').html('');
 			
 			//render the data after sorting
 			currentData.map(render);
