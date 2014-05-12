@@ -2,9 +2,9 @@ $( document ).ready(function() {
 
 	//Original data Array
 	var data = [
-		{id: 1, name: 'John Doe', age: 23, salary: 1000, position: 'Frontend Developer', hiringDate: '14-03-2011'},
-		{id: 2, name: 'Jane Doe', age: 22, salary: 1001, position: 'Backend Developer', hiringDate: '13-03-2011'},
-		{id: 3, name: 'Annette', age: 25, salary: 100000, position: 'All', hiringDate: '14-03-2005'}
+		{id: 1, name: 'John Doe', age: 23, salary: 1000, position: 'Frontend Developer', hiringDate: '14-03-2011', myVal: 65},
+		{id: 2, name: 'Jane Doe', age: 22, salary: 1001, position: 'Backend Developer', hiringDate: '13-03-2011', myVal: 66, visible: true},
+		{id: 3, name: 'Annette', age: 25, salary: 100000, position: 'All', hiringDate: '14-03-2005', myVal: 67}
 	];
 
 	//Columns sort
@@ -120,6 +120,19 @@ $( document ).ready(function() {
 //
 //	}
 
+	$('#employeeTable').on('click', 'th', function() {
+		var _this = this;
+		data.sort(function(a, b) {
+			var col = $(_this).data('column'),
+				val1 = a[col],
+				val2 = b[col];
+				
+				if(val1 === val2) return 0;
+				else return val1 < val2 ? -1 : 1;
+		});
+		render();
+	});
+
 	function render() {
 		var cnt = '', cntHeader = '';
 
@@ -127,15 +140,16 @@ $( document ).ready(function() {
 			// header
 			cntHeader += '<tr>';
 			Object.keys(data[0]).forEach(function(key) {
-				cntHeader += '<th data-column="' + key + '">' + key.charAt(0).toUpperCase() + key.substr(1).replace(/([A-Z])/g, ' $1') + '</th>';
+				key !== 'visible' && (cntHeader += '<th data-column="' + key + '">' + key.charAt(0).toUpperCase() + key.substr(1).replace(/([A-Z])/g, ' $1') + '</th>');
 			});
 			cntHeader += '</tr>';
 
 			// content
 			data.forEach(function(item) {
+				if(item.visible === false) return;
 				cnt += '<tr>';
 				Object.keys(item).forEach(function(key) {
-					cnt += '<td>' + item[key] + '</td>';
+					key !== 'visible' && (cnt += '<td>' + item[key] + '</td>');
 				});
 				cnt += '</tr>';
 			});
